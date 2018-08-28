@@ -96,9 +96,8 @@ class Usuario
 	public function insert($login, $senha)
 	{
 		$sql = new Sql();
-		$res = $sql->query("INSERT INTO tb_usuarios (deslogin,dessenha) VALUES (:LOGIN,:SENHA)", 
+		$sql->query("INSERT INTO tb_usuarios (deslogin,dessenha) VALUES (:LOGIN,:SENHA)", 
 			array(":LOGIN"=>$login, ":SENHA"=>$senha));
-		return true;
 	}
 
 	public function update($login, $senha)
@@ -108,7 +107,7 @@ class Usuario
 
 		$sql = new Sql();
 
-		$res = $sql->query("UPDATE tb_usuarios 
+		$sql->query("UPDATE tb_usuarios 
 							SET deslogin = :LOGIN, 
 								dessenha = :SENHA 
 							WHERE idusuario = :ID", 
@@ -117,6 +116,15 @@ class Usuario
 				':SENHA'=>$this->getDessenha(),
 				':ID'=>$this->getIdusuario()
 		));
+	}
+
+	public function delete()
+	{
+		$sql = new Sql();
+		$sql->query("DELETE FROM tb_usuarios WHERE idusuario = :ID", 
+			array(':ID'=>$this->getIdusuario()));
+		echo 'usuario deletado';
+
 	}
 
 

@@ -32,7 +32,12 @@
 	// $user->insert('Leo','1234');
 
 	//atualizar registro
+	// $usuario = new Usuario();
+	// $usuario->loadById(4);
+	// $usuario->update('Gilmar','1234');
+	// echo $usuario;
+
+	//delete
 	$usuario = new Usuario();
-	$usuario->loadById(4);
-	$usuario->update('Gilmar','1234');
-	echo $usuario;
+	$usuario->loadById(6);
+	$usuario->delete();
