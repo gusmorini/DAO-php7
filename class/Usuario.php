@@ -93,18 +93,30 @@ class Usuario
 		}
 	}
 
-	public function insert2()
+	public function insert($login, $senha)
 	{
 		$sql = new Sql();
-		$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
-			':LOGIN'=>$this->getDeslogin(),
-			':PASSWORD'=>$this->getDessenha()
-		));
+		$res = $sql->query("INSERT INTO tb_usuarios (deslogin,dessenha) VALUES (:LOGIN,:SENHA)", 
+			array(":LOGIN"=>$login, ":SENHA"=>$senha));
+		return true;
+	}
 
-		if (count($results) > 0)
-		{
-			$this->setData($results[0]);
-		}
+	public function update($login, $senha)
+	{
+		$this->setDeslogin($login);
+		$this->setDessenha($senha);
+
+		$sql = new Sql();
+
+		$res = $sql->query("UPDATE tb_usuarios 
+							SET deslogin = :LOGIN, 
+								dessenha = :SENHA 
+							WHERE idusuario = :ID", 
+			array(
+				':LOGIN'=>$this->getDeslogin(),
+				':SENHA'=>$this->getDessenha(),
+				':ID'=>$this->getIdusuario()
+		));
 	}
 
 
